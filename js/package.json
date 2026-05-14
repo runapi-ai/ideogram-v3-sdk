@@ -50,7 +50,7 @@
   ],
   "author": "RunAPI",
   "license": "Apache-2.0",
-  "homepage": "https://runapi.ai/docs/sdk/ideogram-v3",
+  "homepage": "https://runapi.ai/docs#sdk-ideogram-v3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/runapi-ai/ideogram-v3-sdk.git"

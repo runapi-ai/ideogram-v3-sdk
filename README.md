@@ -1,4 +1,24 @@
-# Ideogram API SDK for RunAPI
+<p align="center">
+  <a href="https://runapi.ai"><img src="https://runapi.ai/icon.svg" height="56" alt="RunAPI"></a>
+</p>
+
+<h3 align="center">
+  <a href="https://github.com/runapi-ai/ideogram-v3-sdk">Ideogram V3 API SDK for RunAPI</a>
+</h3>
+
+<p align="center">
+  Ideogram V3 API SDKs for JavaScript, Ruby, and Go on RunAPI.
+</p>
+
+<div align="center">
+
+[![npm](https://img.shields.io/npm/v/@runapi.ai/ideogram-v3)](https://www.npmjs.com/package/@runapi.ai/ideogram-v3)
+[![RubyGems](https://img.shields.io/gem/v/runapi-ideogram-v3)](https://rubygems.org/gems/runapi-ideogram-v3)
+[![Go Reference](https://pkg.go.dev/badge/github.com/runapi-ai/ideogram-v3-sdk/go.svg)](https://pkg.go.dev/github.com/runapi-ai/ideogram-v3-sdk/go)
+[![License](https://img.shields.io/github/license/runapi-ai/ideogram-v3-sdk)](https://github.com/runapi-ai/ideogram-v3-sdk/blob/main/LICENSE)
+
+</div>
+<br/>
 
 The ideogram api SDK packages JavaScript, Ruby, and Go clients for Ideogram V3 on RunAPI. Use this ideogram api SDK for text-to-image, inpaint editing, and image remix workflows that need typed installs, JSON request bodies, task polling, and consistent RunAPI errors across services.
 
@@ -8,7 +28,7 @@ Ideogram V3 belongs to the Ideogram catalog on RunAPI. The public model page is 
 
 ```bash
 npm install @runapi.ai/ideogram-v3
-gem install runapi-ideogram_v3
+gem install runapi-ideogram-v3
 go get github.com/runapi-ai/ideogram-v3-sdk/go@latest
 ```
 
@@ -40,7 +60,7 @@ For short scripts, use `run` with the same JSON body to create the task and wait
 ## Repository layout
 
 - `js/` publishes `@runapi.ai/ideogram-v3`.
-- `ruby/` publishes `runapi-ideogram_v3` when RubyGems publishing resumes.
+- `ruby/` publishes `runapi-ideogram-v3` when RubyGems publishing resumes.
 - `go/` publishes `github.com/runapi-ai/ideogram-v3-sdk/go` and depends on `github.com/runapi-ai/core-sdk/go`.
 
 ## Public links
@@ -66,7 +86,7 @@ Default pricing link for the ideogram api SDK: https://runapi.ai/models/ideogram
 
 ### Which package should I install for ideogram api work?
 
-Install the model package for your language: `@runapi.ai/ideogram-v3`, `runapi-ideogram_v3`, or `github.com/runapi-ai/ideogram-v3-sdk/go`. Install core SDK packages only when you are building shared SDK infrastructure.
+Install the model package for your language: `@runapi.ai/ideogram-v3`, `runapi-ideogram-v3`, or `github.com/runapi-ai/ideogram-v3-sdk/go`. Install core SDK packages only when you are building shared SDK infrastructure.
 
 ### Where should public links point?
 

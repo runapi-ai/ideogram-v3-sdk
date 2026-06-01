@@ -36,8 +36,8 @@ module RunApi
         def validate_params!(params)
           model = param(params, :model)
           raise Core::ValidationError, "model is required" unless model
-          unless model == Types::GENERATION_MODEL
-            raise Core::ValidationError, "Invalid model: #{model}. Must be #{Types::GENERATION_MODEL}"
+          unless [Types::GENERATION_MODEL, Types::CHARACTER_MODEL].include?(model)
+            raise Core::ValidationError, "Invalid model: #{model}. Must be #{Types::GENERATION_MODEL} or #{Types::CHARACTER_MODEL}"
           end
 
           prompt = param(params, :prompt)
@@ -47,8 +47,28 @@ module RunApi
           end
 
           validate_optional!(params, :rendering_speed, Types::RENDERING_SPEEDS)
-          validate_optional!(params, :style, Types::STYLES)
-          validate_optional!(params, :image_size, Types::IMAGE_SIZES)
+          style_values = (model == Types::CHARACTER_MODEL) ? Types::CHARACTER_STYLES : Types::STYLES
+          validate_optional!(params, :style, style_values)
+          validate_optional!(params, :aspect_ratio, Types::ASPECT_RATIOS)
+          validate_character_refs!(params, model)
+          validate_output_count!(params)
+        end
+
+        def validate_character_refs!(params, model)
+          refs = param(params, :reference_image_urls)
+          if model == Types::CHARACTER_MODEL
+            raise Core::ValidationError, "reference_image_urls is required" unless refs.is_a?(Array) && refs.any?
+          elsif refs
+            raise Core::ValidationError, "reference_image_urls is not supported for #{model}"
+          end
+        end
+
+        def validate_output_count!(params)
+          output_count = param(params, :output_count)
+          return unless output_count
+          return if Types::OUTPUT_COUNTS.include?(output_count)
+
+          raise Core::ValidationError, "Invalid output_count: #{output_count}. Must be one of: #{Types::OUTPUT_COUNTS.join(", ")}"
         end
       end
     end

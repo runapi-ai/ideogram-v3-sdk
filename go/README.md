@@ -1,6 +1,6 @@
 # Ideogram API Go SDK for RunAPI
 
-The ideogram api Go SDK is the language-specific package for Ideogram V3 on RunAPI. Use this ideogram api package for text-to-image, image-to-image, edit, and creative production flows when your application needs JSON request bodies, task status lookup, and consistent RunAPI errors in Go.
+The ideogram api Go SDK is the language-specific package for Ideogram V3 on RunAPI. Use this ideogram api package for text-to-image, character reference generation, edit, remix, reframe, and creative production flows when your application needs JSON request bodies, task status lookup, and consistent RunAPI errors in Go.
 
 This ideogram api README is the Go package guide inside the public `ideogram-v3-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/ideogram-v3; for API reference, use https://runapi.ai/docs#ideogram-v3; for SDK docs, use https://runapi.ai/docs#sdk-ideogram-v3.
 
@@ -20,17 +20,18 @@ import (
 )
 
 client, err := ideogramv3.NewClient()
-task, err := client.Generations.Create(context.Background(), ideogramv3.GenerationParams{
-  // Pass the Ideogram V3 JSON request body from https://runapi.ai/docs#ideogram-v3.
+task, err := client.TextToImage.Create(context.Background(), ideogramv3.TextToImageParams{
+  Model:  ideogramv3.ModelTextToImage,
+  Prompt: "A cinematic lakeside at twilight with neon reeds",
 })
-status, err := client.Generations.Get(context.Background(), task.ID)
+status, err := client.TextToImage.Get(context.Background(), task.ID)
 ```
 
 Use `create` when you want to submit a task and return quickly, `get` when you need the latest task state, and `run` when a script should create and poll until completion. In web request handlers, prefer `create` plus webhook or later `get` polling so a worker is not held open.
 
 ## Language notes
 
-Use the public Go module with `github.com/runapi-ai/core-sdk/go` options when building image services, CLIs, or workers. The available resources include generations, edits, and remixes. Keep `RUNAPI_API_KEY` in the environment or your secret manager; never commit API keys or callback secrets.
+Use the public Go module with `github.com/runapi-ai/core-sdk/go` options when building image services, CLIs, or workers. The available resources are `TextToImage`, `EditImage`, `RemixImage`, and `ReframeImage`. Keep `RUNAPI_API_KEY` in the environment or your secret manager; never commit API keys or callback secrets.
 
 ## Links
 

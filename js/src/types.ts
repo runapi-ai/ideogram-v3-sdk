@@ -3,55 +3,78 @@ import type { AsyncTaskStatus } from '@runapi.ai/core';
 export type IdeogramV3Model =
   | 'ideogram-v3-text-to-image'
   | 'ideogram-v3-edit'
-  | 'ideogram-v3-remix';
+  | 'ideogram-v3-remix'
+  | 'ideogram-v3-character'
+  | 'ideogram-v3-character-edit'
+  | 'ideogram-v3-character-remix'
+  | 'ideogram-v3-reframe';
 
-export type RenderingSpeed = 'TURBO' | 'BALANCED' | 'QUALITY';
-export type IdeogramStyle = 'AUTO' | 'GENERAL' | 'REALISTIC' | 'DESIGN';
-export type ImageSize =
-  | 'square'
-  | 'square_hd'
-  | 'portrait_4_3'
-  | 'portrait_16_9'
-  | 'landscape_4_3'
-  | 'landscape_16_9';
-export type NumImages = '1' | '2' | '3' | '4';
+export type RenderingSpeed = 'turbo' | 'balanced' | 'quality';
+export type IdeogramStyle = 'auto' | 'general' | 'realistic' | 'design';
+export type IdeogramCharacterStyle = 'auto' | 'realistic' | 'fiction';
+export type AspectRatio =
+  | '1:1'
+  | '3:4'
+  | '9:16'
+  | '4:3'
+  | '16:9';
+export type OutputCount = 1 | 2 | 3 | 4;
 
 export interface TextToImageParams {
-  model: 'ideogram-v3-text-to-image';
+  model: 'ideogram-v3-text-to-image' | 'ideogram-v3-character';
   prompt: string;
   callback_url?: string;
   rendering_speed?: RenderingSpeed;
-  style?: IdeogramStyle;
-  expand_prompt?: boolean;
-  image_size?: ImageSize;
+  style?: IdeogramStyle | IdeogramCharacterStyle;
+  enable_prompt_expansion?: boolean;
+  aspect_ratio?: AspectRatio;
+  output_count?: OutputCount;
   seed?: number;
   negative_prompt?: string;
+  reference_image_urls?: string[];
 }
 
 export interface EditImageParams {
-  model: 'ideogram-v3-edit';
+  model: 'ideogram-v3-edit' | 'ideogram-v3-character-edit';
   prompt: string;
-  image_url: string;
+  source_image_url: string;
   mask_url: string;
   callback_url?: string;
   rendering_speed?: RenderingSpeed;
-  expand_prompt?: boolean;
+  style?: IdeogramCharacterStyle;
+  enable_prompt_expansion?: boolean;
+  output_count?: OutputCount;
   seed?: number;
+  reference_image_urls?: string[];
 }
 
 export interface RemixImageParams {
-  model: 'ideogram-v3-remix';
+  model: 'ideogram-v3-remix' | 'ideogram-v3-character-remix';
   prompt: string;
-  image_url: string;
+  source_image_url: string;
   callback_url?: string;
   rendering_speed?: RenderingSpeed;
-  style?: IdeogramStyle;
-  expand_prompt?: boolean;
-  image_size?: ImageSize;
-  num_images?: NumImages;
+  style?: IdeogramStyle | IdeogramCharacterStyle;
+  enable_prompt_expansion?: boolean;
+  aspect_ratio?: AspectRatio;
+  output_count?: OutputCount;
   seed?: number;
   strength?: number;
   negative_prompt?: string;
+  reference_image_urls?: string[];
+  style_reference_image_urls?: string[];
+  reference_mask_urls?: string[];
+}
+
+export interface ReframeImageParams {
+  model: 'ideogram-v3-reframe';
+  source_image_url: string;
+  aspect_ratio: AspectRatio;
+  callback_url?: string;
+  rendering_speed?: RenderingSpeed;
+  style?: IdeogramStyle;
+  output_count?: OutputCount;
+  seed?: number;
 }
 
 export interface TaskCreateResponse {

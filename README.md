@@ -20,7 +20,7 @@
 </div>
 <br/>
 
-The ideogram api SDK packages JavaScript, Ruby, and Go clients for Ideogram V3 on RunAPI. Use this ideogram api SDK for text-to-image, inpaint editing, and image remix workflows that need typed installs, JSON request bodies, task polling, and consistent RunAPI errors across services.
+The ideogram api SDK packages JavaScript, Ruby, and Go clients for Ideogram V3 on RunAPI. Use this ideogram api SDK for text-to-image, character reference generation, inpaint editing, image remix, and reframe workflows that need typed installs, JSON request bodies, task polling, and consistent RunAPI errors across services.
 
 Ideogram V3 belongs to the Ideogram catalog on RunAPI. The public model page is https://runapi.ai/models/ideogram-v3; variant pages below carry pricing, rate-limit, and commercial-usage details. The public `ideogram-v3-sdk` repository groups the JavaScript, Ruby, and Go packages for this model.
 
@@ -39,7 +39,7 @@ go get github.com/runapi-ai/ideogram-v3-sdk/go@latest
 - Use `create` for submit-only jobs, `get` for status lookup, and `run` for submit-and-poll scripts.
 - Handle authentication, validation, rate limits, insufficient credits, task failures, and polling timeouts through RunAPI SDK errors.
 
-The JavaScript client exposes text to image, edit image, remix image resources, and the Ruby and Go packages mirror the same RunAPI task lifecycle.
+The JavaScript client exposes text to image, edit image, remix image, and reframe image resources, and the Ruby and Go packages mirror the same RunAPI task lifecycle.
 
 ## JavaScript quick start
 
@@ -79,6 +79,10 @@ Use the most specific ideogram api variant page for pricing, rate limits, and co
 - [Text to image](https://runapi.ai/models/ideogram-v3/text-to-image)
 - [Edit](https://runapi.ai/models/ideogram-v3/edit)
 - [Remix](https://runapi.ai/models/ideogram-v3/remix)
+- [Character](https://runapi.ai/models/ideogram-v3/character)
+- [Character edit](https://runapi.ai/models/ideogram-v3/character-edit)
+- [Character remix](https://runapi.ai/models/ideogram-v3/character-remix)
+- [Reframe](https://runapi.ai/models/ideogram-v3/reframe)
 
 Default pricing link for the ideogram api SDK: https://runapi.ai/models/ideogram-v3/text-to-image
 

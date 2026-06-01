@@ -3,14 +3,13 @@
 module RunApi
   module IdeogramV3
     module Resources
-      # Inpaint with mask (model: ideogram-v3-edit).
-      class EditImage
+      # Reframe an input image (model: ideogram-v3-reframe).
+      class ReframeImage
         include RunApi::Core::ResourceHelpers
 
-        ENDPOINT = "/api/v1/ideogram_v3/edit_image"
+        ENDPOINT = "/api/v1/ideogram_v3/reframe_image"
         RESPONSE_CLASS = Types::IdeogramResponse
         COMPLETED_RESPONSE_CLASS = Types::CompletedIdeogramResponse
-        PROMPT_MAX_LENGTH = 5000
 
         def initialize(http)
           @http = http
@@ -36,31 +35,16 @@ module RunApi
         def validate_params!(params)
           model = param(params, :model)
           raise Core::ValidationError, "model is required" unless model
-          unless [Types::EDIT_MODEL, Types::CHARACTER_EDIT_MODEL].include?(model)
-            raise Core::ValidationError, "Invalid model: #{model}. Must be #{Types::EDIT_MODEL} or #{Types::CHARACTER_EDIT_MODEL}"
-          end
-
-          prompt = param(params, :prompt)
-          raise Core::ValidationError, "prompt is required" unless prompt.is_a?(String) && !prompt.empty?
-          if prompt.length > PROMPT_MAX_LENGTH
-            raise Core::ValidationError, "prompt must be at most #{PROMPT_MAX_LENGTH} characters"
+          unless model == Types::REFRAME_MODEL
+            raise Core::ValidationError, "Invalid model: #{model}. Must be #{Types::REFRAME_MODEL}"
           end
 
           raise Core::ValidationError, "source_image_url is required" unless param(params, :source_image_url)
-          raise Core::ValidationError, "mask_url is required" unless param(params, :mask_url)
+          raise Core::ValidationError, "aspect_ratio is required" unless param(params, :aspect_ratio)
 
+          validate_optional!(params, :aspect_ratio, Types::ASPECT_RATIOS)
           validate_optional!(params, :rendering_speed, Types::RENDERING_SPEEDS)
-          validate_character_fields!(params, model)
-        end
-
-        def validate_character_fields!(params, model)
-          refs = param(params, :reference_image_urls)
-          if model == Types::CHARACTER_EDIT_MODEL
-            raise Core::ValidationError, "reference_image_urls is required" unless refs.is_a?(Array) && refs.any?
-            validate_optional!(params, :style, Types::CHARACTER_STYLES)
-          elsif refs || param(params, :style)
-            raise Core::ValidationError, "character edit fields are not supported for #{model}"
-          end
+          validate_optional!(params, :style, Types::STYLES)
           validate_output_count!(params)
         end
 

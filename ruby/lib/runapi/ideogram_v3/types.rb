@@ -6,13 +6,16 @@ module RunApi
       GENERATION_MODEL = "ideogram-v3-text-to-image"
       EDIT_MODEL = "ideogram-v3-edit"
       REMIX_MODEL = "ideogram-v3-remix"
+      CHARACTER_MODEL = "ideogram-v3-character"
+      CHARACTER_EDIT_MODEL = "ideogram-v3-character-edit"
+      CHARACTER_REMIX_MODEL = "ideogram-v3-character-remix"
+      REFRAME_MODEL = "ideogram-v3-reframe"
 
-      RENDERING_SPEEDS = %w[TURBO BALANCED QUALITY].freeze
-      STYLES = %w[AUTO GENERAL REALISTIC DESIGN].freeze
-      IMAGE_SIZES = %w[
-        square square_hd portrait_4_3 portrait_16_9 landscape_4_3 landscape_16_9
-      ].freeze
-      NUM_IMAGES = %w[1 2 3 4].freeze
+      RENDERING_SPEEDS = %w[turbo balanced quality].freeze
+      STYLES = %w[auto general realistic design].freeze
+      CHARACTER_STYLES = %w[auto realistic fiction].freeze
+      ASPECT_RATIOS = %w[1:1 3:4 9:16 4:3 16:9].freeze
+      OUTPUT_COUNTS = [1, 2, 3, 4].freeze
 
       class Image < RunApi::Core::BaseModel
         optional :url, String
@@ -21,13 +24,13 @@ module RunApi
       class IdeogramResponse < RunApi::Core::TaskResponse
         required :id, String
         optional :status, String, enum: -> { RunApi::Core::TaskResponse::Status::ALL }
-        optional :images, [ -> { Image } ]
+        optional :images, [-> { Image }]
         optional :error, String
       end
 
       # Narrowed response returned by `run()` once polling sees `status: "completed"`.
       class CompletedIdeogramResponse < IdeogramResponse
-        required :images, [ -> { Image } ]
+        required :images, [-> { Image }]
       end
     end
   end

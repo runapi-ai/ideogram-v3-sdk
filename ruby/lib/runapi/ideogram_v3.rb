@@ -5,6 +5,7 @@ require_relative "ideogram_v3/types"
 require_relative "ideogram_v3/resources/text_to_image"
 require_relative "ideogram_v3/resources/edit_image"
 require_relative "ideogram_v3/resources/remix_image"
+require_relative "ideogram_v3/resources/reframe_image"
 require_relative "ideogram_v3/client"
 
 module RunApi

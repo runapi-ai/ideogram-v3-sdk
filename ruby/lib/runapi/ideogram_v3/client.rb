@@ -14,7 +14,8 @@ module RunApi
       # @return [Resources::TextToImage] Text-to-image operations.
       # @return [Resources::EditImage] Inpaint-with-mask operations.
       # @return [Resources::RemixImage] Image remix operations.
-      attr_reader :text_to_image, :edit_image, :remix_image
+      # @return [Resources::ReframeImage] Image reframe operations.
+      attr_reader :text_to_image, :edit_image, :remix_image, :reframe_image
 
       def initialize(api_key: nil, **options)
         @api_key = Core::Auth.resolve_api_key(api_key)
@@ -24,6 +25,7 @@ module RunApi
         @text_to_image = Resources::TextToImage.new(http)
         @edit_image = Resources::EditImage.new(http)
         @remix_image = Resources::RemixImage.new(http)
+        @reframe_image = Resources::ReframeImage.new(http)
       end
     end
   end

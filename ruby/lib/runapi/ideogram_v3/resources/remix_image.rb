@@ -12,6 +12,7 @@ module RunApi
         COMPLETED_RESPONSE_CLASS = Types::CompletedIdeogramResponse
         PROMPT_MAX_LENGTH = 5000
         STRENGTH_MIN = 0.01
+        CHARACTER_REMIX_STRENGTH_MIN = 0.1
         STRENGTH_MAX = 1.0
 
         def initialize(http)
@@ -38,8 +39,8 @@ module RunApi
         def validate_params!(params)
           model = param(params, :model)
           raise Core::ValidationError, "model is required" unless model
-          unless model == Types::REMIX_MODEL
-            raise Core::ValidationError, "Invalid model: #{model}. Must be #{Types::REMIX_MODEL}"
+          unless [Types::REMIX_MODEL, Types::CHARACTER_REMIX_MODEL].include?(model)
+            raise Core::ValidationError, "Invalid model: #{model}. Must be #{Types::REMIX_MODEL} or #{Types::CHARACTER_REMIX_MODEL}"
           end
 
           prompt = param(params, :prompt)
@@ -48,23 +49,35 @@ module RunApi
             raise Core::ValidationError, "prompt must be at most #{PROMPT_MAX_LENGTH} characters"
           end
 
-          raise Core::ValidationError, "image_url is required" unless param(params, :image_url)
+          raise Core::ValidationError, "source_image_url is required" unless param(params, :source_image_url)
 
           validate_optional!(params, :rendering_speed, Types::RENDERING_SPEEDS)
-          validate_optional!(params, :style, Types::STYLES)
-          validate_optional!(params, :image_size, Types::IMAGE_SIZES)
+          style_values = (model == Types::CHARACTER_REMIX_MODEL) ? Types::CHARACTER_STYLES : Types::STYLES
+          validate_optional!(params, :style, style_values)
+          validate_optional!(params, :aspect_ratio, Types::ASPECT_RATIOS)
+          validate_character_fields!(params, model)
 
-          if (num_images = param(params, :num_images))
-            unless Types::NUM_IMAGES.include?(num_images.to_s)
-              raise Core::ValidationError, "Invalid num_images: #{num_images}. Must be one of: #{Types::NUM_IMAGES.join(", ")}"
+          if (output_count = param(params, :output_count))
+            unless Types::OUTPUT_COUNTS.include?(output_count)
+              raise Core::ValidationError, "Invalid output_count: #{output_count}. Must be one of: #{Types::OUTPUT_COUNTS.join(", ")}"
             end
           end
 
           if (strength = param(params, :strength))
             numeric = Float(strength, exception: false)
-            if numeric.nil? || numeric < STRENGTH_MIN || numeric > STRENGTH_MAX
-              raise Core::ValidationError, "strength must be between #{STRENGTH_MIN} and #{STRENGTH_MAX}"
+            min = (model == Types::CHARACTER_REMIX_MODEL) ? CHARACTER_REMIX_STRENGTH_MIN : STRENGTH_MIN
+            if numeric.nil? || numeric < min || numeric > STRENGTH_MAX
+              raise Core::ValidationError, "strength must be between #{min} and #{STRENGTH_MAX}"
             end
+          end
+        end
+
+        def validate_character_fields!(params, model)
+          refs = param(params, :reference_image_urls)
+          if model == Types::CHARACTER_REMIX_MODEL
+            raise Core::ValidationError, "reference_image_urls is required" unless refs.is_a?(Array) && refs.any?
+          elsif refs || param(params, :style_reference_image_urls) || param(params, :reference_mask_urls)
+            raise Core::ValidationError, "character remix fields are not supported for #{model}"
           end
         end
       end

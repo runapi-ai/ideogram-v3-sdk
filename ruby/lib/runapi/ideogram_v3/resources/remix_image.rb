@@ -3,7 +3,7 @@
 module RunApi
   module IdeogramV3
     module Resources
-      # Image remix (model: ideogram-v3-remix).
+      # Creates a variation of a source image guided by a new text prompt.
       class RemixImage
         include RunApi::Core::ResourceHelpers
 

@@ -1,4 +1,4 @@
-import { createHttpClient, type ClientOptions } from '@runapi.ai/core';
+import { BaseClient, type ClientOptions } from '@runapi.ai/core';
 import { TextToImage } from './resources/text-to-image';
 import { EditImage } from './resources/edit-image';
 import { RemixImage } from './resources/remix-image';
@@ -17,7 +17,7 @@ import { ReframeImage } from './resources/reframe-image';
  * });
  * ```
  */
-export class IdeogramV3Client {
+export class IdeogramV3Client extends BaseClient {
   /** Text-to-image operations (`ideogram-v3-text-to-image`). */
   public readonly textToImage: TextToImage;
   /** Inpaint-with-mask operations (`ideogram-v3-edit`). */
@@ -28,10 +28,10 @@ export class IdeogramV3Client {
   public readonly reframeImage: ReframeImage;
 
   constructor(options: ClientOptions = {}) {
-    const http = createHttpClient(options);
-    this.textToImage = new TextToImage(http);
-    this.editImage = new EditImage(http);
-    this.remixImage = new RemixImage(http);
-    this.reframeImage = new ReframeImage(http);
+    super(options);
+    this.textToImage = new TextToImage(this.http);
+    this.editImage = new EditImage(this.http);
+    this.remixImage = new RemixImage(this.http);
+    this.reframeImage = new ReframeImage(this.http);
   }
 }

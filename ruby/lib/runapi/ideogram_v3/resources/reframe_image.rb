@@ -3,7 +3,7 @@
 module RunApi
   module IdeogramV3
     module Resources
-      # Reframe an input image (model: ideogram-v3-reframe).
+      # Extends or crops an image to a new aspect ratio without regenerating content.
       class ReframeImage
         include RunApi::Core::ResourceHelpers
 

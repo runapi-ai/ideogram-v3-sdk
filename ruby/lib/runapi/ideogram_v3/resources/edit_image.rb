@@ -3,7 +3,7 @@
 module RunApi
   module IdeogramV3
     module Resources
-      # Inpaint with mask (model: ideogram-v3-edit).
+      # Inpaint editing using a mask to define the regenerated region.
       class EditImage
         include RunApi::Core::ResourceHelpers
 

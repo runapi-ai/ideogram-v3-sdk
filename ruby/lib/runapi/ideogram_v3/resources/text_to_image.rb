@@ -3,7 +3,7 @@
 module RunApi
   module IdeogramV3
     module Resources
-      # Text-to-image generation (model: ideogram-v3-text-to-image).
+      # Generates images from text with configurable speed, style, and aspect ratio.
       class TextToImage
         include RunApi::Core::ResourceHelpers
 

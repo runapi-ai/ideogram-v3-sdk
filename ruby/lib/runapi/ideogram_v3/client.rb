@@ -4,24 +4,27 @@ module RunApi
   module IdeogramV3
     # Ideogram V3 image generation API client.
     #
+    # Supports text-to-image, inpaint editing, remix, and reframe operations.
+    # Character model variants add character consistency from reference images.
+    #
     # @example
     #   client = RunApi::IdeogramV3::Client.new(api_key: "your-api-key")
     #   result = client.text_to_image.run(
     #     model: "ideogram-v3-text-to-image",
     #     prompt: "A cinematic lakeside at twilight"
     #   )
-    class Client
-      # @return [Resources::TextToImage] Text-to-image operations.
-      # @return [Resources::EditImage] Inpaint-with-mask operations.
-      # @return [Resources::RemixImage] Image remix operations.
-      # @return [Resources::ReframeImage] Image reframe operations.
-      attr_reader :text_to_image, :edit_image, :remix_image, :reframe_image
+    class Client < RunApi::Core::Client
+      # @return [Resources::TextToImage] Text-to-image generation operations.
+      attr_reader :text_to_image
+      # @return [Resources::EditImage] Inpaint-with-mask editing operations.
+      attr_reader :edit_image
+      # @return [Resources::RemixImage] Prompt-guided image variation operations.
+      attr_reader :remix_image
+      # @return [Resources::ReframeImage] Aspect ratio reframing operations.
+      attr_reader :reframe_image
 
       def initialize(api_key: nil, **options)
-        @api_key = Core::Auth.resolve_api_key(api_key)
-
-        client_options = Core::ClientOptions.new(api_key: @api_key, **options)
-        http = client_options.http_client || Core::HttpClient.new(client_options)
+        super
         @text_to_image = Resources::TextToImage.new(http)
         @edit_image = Resources::EditImage.new(http)
         @remix_image = Resources::RemixImage.new(http)

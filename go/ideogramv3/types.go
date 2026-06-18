@@ -1,35 +1,56 @@
 package ideogramv3
 
+// Model constrains the model parameter to valid Ideogram V3 variants.
 type Model string
 
+// RenderingSpeed controls the speed-quality tradeoff for generation.
 type RenderingSpeed string
 
+// Style selects the visual style applied during generation.
 type Style string
 
+// AspectRatio constrains the output aspect ratio to accepted values.
 type AspectRatio string
 
+// OutputCount limits the number of images returned per request.
 type OutputCount int
 
+// TaskStatus represents the lifecycle state of an async task.
 type TaskStatus string
 
 const (
+	// ModelTextToImage is standard text-to-image generation.
 	ModelTextToImage Model = "ideogram-v3-text-to-image"
-	ModelEdit        Model = "ideogram-v3-edit"
-	ModelRemix       Model = "ideogram-v3-remix"
-	ModelCharacter   Model = "ideogram-v3-character"
-	ModelCharEdit    Model = "ideogram-v3-character-edit"
-	ModelCharRemix   Model = "ideogram-v3-character-remix"
-	ModelReframe     Model = "ideogram-v3-reframe"
+	// ModelEdit is inpaint editing using a mask to define the edited region.
+	ModelEdit Model = "ideogram-v3-edit"
+	// ModelRemix is guided variation of a source image using a new prompt.
+	ModelRemix Model = "ideogram-v3-remix"
+	// ModelCharacter is text-to-image generation with character consistency from reference images.
+	ModelCharacter Model = "ideogram-v3-character"
+	// ModelCharEdit is inpaint editing with character consistency from reference images.
+	ModelCharEdit Model = "ideogram-v3-character-edit"
+	// ModelCharRemix is remix with character consistency from reference images.
+	ModelCharRemix Model = "ideogram-v3-character-remix"
+	// ModelReframe extends or crops an image to a new aspect ratio without regenerating content.
+	ModelReframe Model = "ideogram-v3-reframe"
 
-	RenderingTurbo    RenderingSpeed = "turbo"
+	// RenderingTurbo is the fastest generation with lower detail.
+	RenderingTurbo RenderingSpeed = "turbo"
+	// RenderingBalanced is a moderate speed and quality tradeoff.
 	RenderingBalanced RenderingSpeed = "balanced"
-	RenderingQuality  RenderingSpeed = "quality"
+	// RenderingQuality is the highest detail with longer generation time.
+	RenderingQuality RenderingSpeed = "quality"
 
-	StyleAuto      Style = "auto"
-	StyleGeneral   Style = "general"
+	// StyleAuto automatically selects the most appropriate style.
+	StyleAuto Style = "auto"
+	// StyleGeneral is a versatile style suitable for most prompts.
+	StyleGeneral Style = "general"
+	// StyleRealistic is photorealistic rendering.
 	StyleRealistic Style = "realistic"
-	StyleDesign    Style = "design"
-	StyleFiction   Style = "fiction"
+	// StyleDesign is graphic design and illustration style.
+	StyleDesign Style = "design"
+	// StyleFiction is stylized fictional and fantasy rendering.
+	StyleFiction Style = "fiction"
 
 	AspectRatio1x1  AspectRatio = "1:1"
 	AspectRatio3x4  AspectRatio = "3:4"
@@ -99,6 +120,7 @@ type ReframeImageParams struct {
 	CallbackURL    string         `json:"callback_url,omitempty" help:"optional; webhook URL"`
 }
 
+// AsyncTaskResponse implements core.TaskResponse for async task polling.
 type AsyncTaskResponse struct {
 	ID     string     `json:"id"`
 	Status TaskStatus `json:"status"`
@@ -109,6 +131,7 @@ func (r AsyncTaskResponse) GetID() string     { return r.ID }
 func (r AsyncTaskResponse) GetStatus() string { return string(r.Status) }
 func (r AsyncTaskResponse) GetError() string  { return r.Error }
 
+// Image holds a CDN URL for a generated image.
 type Image struct {
 	URL string `json:"url"`
 }

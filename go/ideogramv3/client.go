@@ -9,6 +9,7 @@ package ideogramv3
 import (
 	"context"
 
+	"github.com/runapi-ai/core-sdk/go/base"
 	"github.com/runapi-ai/core-sdk/go/core"
 	"github.com/runapi-ai/core-sdk/go/option"
 )
@@ -22,6 +23,7 @@ const (
 
 // Client is the Ideogram V3 image generation API client.
 type Client struct {
+	base.Base
 	// TextToImage provides text-to-image operations.
 	TextToImage *TextToImage
 	// EditImage provides inpaint-with-mask operations.
@@ -48,6 +50,7 @@ func NewClient(opts ...option.ClientOption) (*Client, error) {
 // NewClientWithHTTP creates an Ideogram V3 client with a pre-configured HTTP transport.
 func NewClientWithHTTP(httpClient core.HTTPClient) *Client {
 	return &Client{
+		Base:         base.New(httpClient),
 		TextToImage:  &TextToImage{http: httpClient},
 		EditImage:    &EditImage{http: httpClient},
 		RemixImage:   &RemixImage{http: httpClient},
@@ -61,59 +64,79 @@ type TextToImage struct{ http core.HTTPClient }
 // EditImage inpaints a source image using a mask.
 type EditImage struct{ http core.HTTPClient }
 
-// RemixImage remixImage an input image with a new prompt.
+// RemixImage creates a variation of a source image guided by a new prompt.
 type RemixImage struct{ http core.HTTPClient }
 
 // ReframeImage reframes an input image into a new aspect ratio or size.
 type ReframeImage struct{ http core.HTTPClient }
 
+// Create submits a text-to-image task and returns immediately with a task id.
 func (r *TextToImage) Create(ctx context.Context, params TextToImageParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
 	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, textToImagePath, core.CompactParams(params), requestOptions)
 }
+
+// Get fetches the current status of a text-to-image task by id.
 func (r *TextToImage) Get(ctx context.Context, id string, opts ...option.RequestOption) (*IdeogramResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
 	return core.GetJSON[IdeogramResponse](ctx, r.http, core.ResourcePath(textToImagePath, id), requestOptions)
 }
+
+// Run submits a text-to-image task and polls until it completes.
 func (r *TextToImage) Run(ctx context.Context, params TextToImageParams, opts ...option.RequestOption) (*IdeogramResponse, error) {
 	_, pollingOptions := option.ResolveRequestOptions(opts...)
 	return core.RunAsync(ctx, func(ctx context.Context) (*core.TaskCreateResponse, error) { return r.Create(ctx, params, opts...) }, func(ctx context.Context, id string) (*IdeogramResponse, error) { return r.Get(ctx, id, opts...) }, pollingOptions)
 }
 
+// Create submits an edit-image task and returns immediately with a task id.
 func (r *EditImage) Create(ctx context.Context, params EditImageParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
 	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, editImagePath, core.CompactParams(params), requestOptions)
 }
+
+// Get fetches the current status of an edit-image task by id.
 func (r *EditImage) Get(ctx context.Context, id string, opts ...option.RequestOption) (*IdeogramResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
 	return core.GetJSON[IdeogramResponse](ctx, r.http, core.ResourcePath(editImagePath, id), requestOptions)
 }
+
+// Run submits an edit-image task and polls until it completes.
 func (r *EditImage) Run(ctx context.Context, params EditImageParams, opts ...option.RequestOption) (*IdeogramResponse, error) {
 	_, pollingOptions := option.ResolveRequestOptions(opts...)
 	return core.RunAsync(ctx, func(ctx context.Context) (*core.TaskCreateResponse, error) { return r.Create(ctx, params, opts...) }, func(ctx context.Context, id string) (*IdeogramResponse, error) { return r.Get(ctx, id, opts...) }, pollingOptions)
 }
 
+// Create submits a remix-image task and returns immediately with a task id.
 func (r *RemixImage) Create(ctx context.Context, params RemixImageParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
 	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, remixImagePath, core.CompactParams(params), requestOptions)
 }
+
+// Get fetches the current status of a remix-image task by id.
 func (r *RemixImage) Get(ctx context.Context, id string, opts ...option.RequestOption) (*IdeogramResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
 	return core.GetJSON[IdeogramResponse](ctx, r.http, core.ResourcePath(remixImagePath, id), requestOptions)
 }
+
+// Run submits a remix-image task and polls until it completes.
 func (r *RemixImage) Run(ctx context.Context, params RemixImageParams, opts ...option.RequestOption) (*IdeogramResponse, error) {
 	_, pollingOptions := option.ResolveRequestOptions(opts...)
 	return core.RunAsync(ctx, func(ctx context.Context) (*core.TaskCreateResponse, error) { return r.Create(ctx, params, opts...) }, func(ctx context.Context, id string) (*IdeogramResponse, error) { return r.Get(ctx, id, opts...) }, pollingOptions)
 }
 
+// Create submits a reframe-image task and returns immediately with a task id.
 func (r *ReframeImage) Create(ctx context.Context, params ReframeImageParams, opts ...option.RequestOption) (*core.TaskCreateResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
 	return core.PostJSON[core.TaskCreateResponse](ctx, r.http, reframeImagePath, core.CompactParams(params), requestOptions)
 }
+
+// Get fetches the current status of a reframe-image task by id.
 func (r *ReframeImage) Get(ctx context.Context, id string, opts ...option.RequestOption) (*IdeogramResponse, error) {
 	requestOptions, _ := option.ResolveRequestOptions(opts...)
 	return core.GetJSON[IdeogramResponse](ctx, r.http, core.ResourcePath(reframeImagePath, id), requestOptions)
 }
+
+// Run submits a reframe-image task and polls until it completes.
 func (r *ReframeImage) Run(ctx context.Context, params ReframeImageParams, opts ...option.RequestOption) (*IdeogramResponse, error) {
 	_, pollingOptions := option.ResolveRequestOptions(opts...)
 	return core.RunAsync(ctx, func(ctx context.Context) (*core.TaskCreateResponse, error) { return r.Create(ctx, params, opts...) }, func(ctx context.Context, id string) (*IdeogramResponse, error) { return r.Get(ctx, id, opts...) }, pollingOptions)

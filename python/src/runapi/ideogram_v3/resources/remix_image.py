@@ -6,14 +6,9 @@ from typing import Any, Dict
 
 from runapi.core import Resource, ValidationError
 
-from .._validators import validate_output_count
+from ..contract_gen import CONTRACT
 from ..types import (
-    ASPECT_RATIOS,
     CHARACTER_REMIX_MODEL,
-    CHARACTER_STYLES,
-    REMIX_MODEL,
-    RENDERING_SPEEDS,
-    STYLES,
     CompletedIdeogramResponse,
     IdeogramResponse,
 )
@@ -67,13 +62,8 @@ class RemixImage(Resource):
         return self._request("get", f"{self.ENDPOINT}/{id}")
 
     def _validate_params(self, params: Dict[str, Any]) -> None:
+        self._validate_contract(CONTRACT["remix-image"], params)
         model = params.get("model")
-        if not model:
-            raise ValidationError("model is required")
-        if model not in (REMIX_MODEL, CHARACTER_REMIX_MODEL):
-            raise ValidationError(
-                f"Invalid model: {model}. Must be {REMIX_MODEL} or {CHARACTER_REMIX_MODEL}"
-            )
 
         prompt = params.get("prompt")
         if not (isinstance(prompt, str) and prompt):
@@ -81,15 +71,7 @@ class RemixImage(Resource):
         if len(prompt) > self.PROMPT_MAX_LENGTH:
             raise ValidationError(f"prompt must be at most {self.PROMPT_MAX_LENGTH} characters")
 
-        if not params.get("source_image_url"):
-            raise ValidationError("source_image_url is required")
-
-        self._validate_optional(params, "rendering_speed", RENDERING_SPEEDS)
-        style_values = CHARACTER_STYLES if model == CHARACTER_REMIX_MODEL else STYLES
-        self._validate_optional(params, "style", style_values)
-        self._validate_optional(params, "aspect_ratio", ASPECT_RATIOS)
         self._validate_character_fields(params, model)
-        validate_output_count(params)
         self._validate_strength(params, model)
 
     def _validate_character_fields(self, params: Dict[str, Any], model: str) -> None:

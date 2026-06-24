@@ -7,13 +7,13 @@ This ideogram api README is the Ruby package guide inside the public `ideogram-v
 ## Install
 
 ```bash
-gem install runapi-ideogram-v3
+gem install runapi-ideogram_v3
 ```
 
 ## Quick start
 
 ```ruby
-require "runapi-ideogram-v3"
+require "runapi-ideogram_v3"
 
 client = RunApi::IdeogramV3::Client.new
 task = client.text_to_image.create(

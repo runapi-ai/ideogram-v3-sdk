@@ -1,6 +1,7 @@
-import type { HttpClient, RequestOptions, PollingOptions } from '@runapi.ai/core';
-import { compactParams } from '@runapi.ai/core';
+import type { HttpClient, RequestOptions, PollingOptions, ActionSchema } from '@runapi.ai/core';
+import { compactParams, validateParams } from '@runapi.ai/core';
 import { pollUntilComplete } from '@runapi.ai/core/internal';
+import { contract } from '../contract_gen';
 import type {
   CompletedIdeogramV3Response,
   IdeogramV3Response,
@@ -36,8 +37,10 @@ export class RemixImage {
    * @returns The task creation result with id.
    */
   async create(params: RemixImageParams, options?: RequestOptions): Promise<TaskCreateResponse> {
+    const body = compactParams(params);
+    validateParams(contract['remix-image'] as ActionSchema, body as Record<string, unknown>);
     return this.http.request<TaskCreateResponse>('POST', ENDPOINT, {
-      body: compactParams(params),
+      body,
       ...options,
     });
   }

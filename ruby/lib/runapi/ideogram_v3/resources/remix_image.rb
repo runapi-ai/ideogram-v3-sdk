@@ -37,11 +37,8 @@ module RunApi
         private
 
         def validate_params!(params)
+          validate_contract!(CONTRACT["remix-image"], params)
           model = param(params, :model)
-          raise Core::ValidationError, "model is required" unless model
-          unless [Types::REMIX_MODEL, Types::CHARACTER_REMIX_MODEL].include?(model)
-            raise Core::ValidationError, "Invalid model: #{model}. Must be #{Types::REMIX_MODEL} or #{Types::CHARACTER_REMIX_MODEL}"
-          end
 
           prompt = param(params, :prompt)
           raise Core::ValidationError, "prompt is required" unless prompt.is_a?(String) && !prompt.empty?
@@ -49,19 +46,7 @@ module RunApi
             raise Core::ValidationError, "prompt must be at most #{PROMPT_MAX_LENGTH} characters"
           end
 
-          raise Core::ValidationError, "source_image_url is required" unless param(params, :source_image_url)
-
-          validate_optional!(params, :rendering_speed, Types::RENDERING_SPEEDS)
-          style_values = (model == Types::CHARACTER_REMIX_MODEL) ? Types::CHARACTER_STYLES : Types::STYLES
-          validate_optional!(params, :style, style_values)
-          validate_optional!(params, :aspect_ratio, Types::ASPECT_RATIOS)
           validate_character_fields!(params, model)
-
-          if (output_count = param(params, :output_count))
-            unless Types::OUTPUT_COUNTS.include?(output_count)
-              raise Core::ValidationError, "Invalid output_count: #{output_count}. Must be one of: #{Types::OUTPUT_COUNTS.join(", ")}"
-            end
-          end
 
           if (strength = param(params, :strength))
             numeric = Float(strength, exception: false)

@@ -215,7 +215,10 @@ def test_reframe_image_run_narrows_completed_type():
 
 def test_text_to_image_rejects_unknown_model():
     client = IdeogramV3Client(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="Invalid model: nope"):
+    with pytest.raises(
+        ValidationError,
+        match="model must be one of: ideogram-v3-character, ideogram-v3-text-to-image",
+    ):
         client.text_to_image.create(model="nope", prompt="hi there")
 
 
@@ -227,7 +230,9 @@ def test_text_to_image_requires_prompt():
 
 def test_text_to_image_rejects_invalid_style_enum():
     client = IdeogramV3Client(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="Invalid style: bogus"):
+    with pytest.raises(
+        ValidationError, match="style must be one of: auto, general, realistic, design"
+    ):
         client.text_to_image.create(
             model="ideogram-v3-text-to-image", prompt="hi there", style="bogus"
         )
@@ -235,7 +240,7 @@ def test_text_to_image_rejects_invalid_style_enum():
 
 def test_text_to_image_output_count_enum():
     client = IdeogramV3Client(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="Invalid output_count: 9"):
+    with pytest.raises(ValidationError, match="output_count must be one of: 1, 2, 3, 4"):
         client.text_to_image.create(
             model="ideogram-v3-text-to-image", prompt="hi there", output_count=9
         )
@@ -336,7 +341,7 @@ def test_remix_rejects_character_fields_for_base_model():
 
 def test_reframe_rejects_unknown_model():
     client = IdeogramV3Client(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="Must be ideogram-v3-reframe"):
+    with pytest.raises(ValidationError, match="model must be one of: ideogram-v3-reframe"):
         client.reframe_image.create(
             model="ideogram-v3-remix", source_image_url="https://x/a.png", aspect_ratio="1:1"
         )
@@ -352,7 +357,9 @@ def test_reframe_requires_aspect_ratio():
 
 def test_reframe_rejects_invalid_aspect_ratio_enum():
     client = IdeogramV3Client(api_key="k", http_client=FakeHttp())
-    with pytest.raises(ValidationError, match="Invalid aspect_ratio: 21:9"):
+    with pytest.raises(
+        ValidationError, match="aspect_ratio must be one of: 1:1, 3:4, 9:16, 4:3, 16:9"
+    ):
         client.reframe_image.create(
             model="ideogram-v3-reframe", source_image_url="https://x/a.png", aspect_ratio="21:9"
         )

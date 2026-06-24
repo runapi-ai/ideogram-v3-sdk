@@ -6,12 +6,9 @@ from typing import Any, Dict
 
 from runapi.core import Resource, ValidationError
 
-from .._validators import validate_output_count
+from ..contract_gen import CONTRACT
 from ..types import (
     CHARACTER_EDIT_MODEL,
-    CHARACTER_STYLES,
-    EDIT_MODEL,
-    RENDERING_SPEEDS,
     CompletedIdeogramResponse,
     IdeogramResponse,
 )
@@ -62,13 +59,8 @@ class EditImage(Resource):
         return self._request("get", f"{self.ENDPOINT}/{id}")
 
     def _validate_params(self, params: Dict[str, Any]) -> None:
+        self._validate_contract(CONTRACT["edit-image"], params)
         model = params.get("model")
-        if not model:
-            raise ValidationError("model is required")
-        if model not in (EDIT_MODEL, CHARACTER_EDIT_MODEL):
-            raise ValidationError(
-                f"Invalid model: {model}. Must be {EDIT_MODEL} or {CHARACTER_EDIT_MODEL}"
-            )
 
         prompt = params.get("prompt")
         if not (isinstance(prompt, str) and prompt):
@@ -76,12 +68,9 @@ class EditImage(Resource):
         if len(prompt) > self.PROMPT_MAX_LENGTH:
             raise ValidationError(f"prompt must be at most {self.PROMPT_MAX_LENGTH} characters")
 
-        if not params.get("source_image_url"):
-            raise ValidationError("source_image_url is required")
         if not params.get("mask_url"):
             raise ValidationError("mask_url is required")
 
-        self._validate_optional(params, "rendering_speed", RENDERING_SPEEDS)
         self._validate_character_fields(params, model)
 
     def _validate_character_fields(self, params: Dict[str, Any], model: str) -> None:
@@ -89,7 +78,5 @@ class EditImage(Resource):
         if model == CHARACTER_EDIT_MODEL:
             if not (isinstance(refs, list) and refs):
                 raise ValidationError("reference_image_urls is required")
-            self._validate_optional(params, "style", CHARACTER_STYLES)
         elif refs or params.get("style"):
             raise ValidationError(f"character edit fields are not supported for {model}")
-        validate_output_count(params)

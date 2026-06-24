@@ -33,26 +33,9 @@ module RunApi
         private
 
         def validate_params!(params)
-          model = param(params, :model)
-          raise Core::ValidationError, "model is required" unless model
-          unless model == Types::REFRAME_MODEL
-            raise Core::ValidationError, "Invalid model: #{model}. Must be #{Types::REFRAME_MODEL}"
-          end
+          validate_contract!(CONTRACT["reframe-image"], params)
 
-          raise Core::ValidationError, "source_image_url is required" unless param(params, :source_image_url)
           raise Core::ValidationError, "aspect_ratio is required" unless param(params, :aspect_ratio)
-
-          validate_optional!(params, :aspect_ratio, Types::ASPECT_RATIOS)
-          validate_optional!(params, :rendering_speed, Types::RENDERING_SPEEDS)
-          validate_optional!(params, :style, Types::STYLES)
-          validate_output_count!(params)
-        end
-
-        def validate_output_count!(params)
-          return unless (output_count = param(params, :output_count))
-          return if Types::OUTPUT_COUNTS.include?(output_count)
-
-          raise Core::ValidationError, "Invalid output_count: #{output_count}. Must be one of: #{Types::OUTPUT_COUNTS.join(", ")}"
         end
       end
     end

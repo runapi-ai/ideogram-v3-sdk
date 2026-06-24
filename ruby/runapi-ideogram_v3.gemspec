@@ -3,8 +3,9 @@
 Dir.chdir(__dir__) do
 
   Gem::Specification.new do |spec|
-    spec.name = "runapi-ideogram-v3"
+    spec.name = "runapi-ideogram_v3"
     spec.version = "0.2.7"
+    spec.metadata["runapi_slug"] = "ideogram-v3"
     spec.authors = ["RunAPI"]
     spec.email = ["contact@runapi.ai"]
 
@@ -17,7 +18,6 @@ Dir.chdir(__dir__) do
     spec.metadata["documentation_uri"] = "https://github.com/runapi-ai/ideogram-v3-sdk/blob/main/ruby/README.md"
     spec.metadata["source_code_uri"] = "https://github.com/runapi-ai/ideogram-v3-sdk"
     spec.metadata["changelog_uri"] = "https://github.com/runapi-ai/ideogram-v3-sdk/blob/main/CHANGELOG.md"
-
 
 
     spec.files = Dir.glob("lib/**/*") + %w[LICENSE README.md]

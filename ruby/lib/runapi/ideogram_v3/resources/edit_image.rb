@@ -34,11 +34,8 @@ module RunApi
         private
 
         def validate_params!(params)
+          validate_contract!(CONTRACT["edit-image"], params)
           model = param(params, :model)
-          raise Core::ValidationError, "model is required" unless model
-          unless [Types::EDIT_MODEL, Types::CHARACTER_EDIT_MODEL].include?(model)
-            raise Core::ValidationError, "Invalid model: #{model}. Must be #{Types::EDIT_MODEL} or #{Types::CHARACTER_EDIT_MODEL}"
-          end
 
           prompt = param(params, :prompt)
           raise Core::ValidationError, "prompt is required" unless prompt.is_a?(String) && !prompt.empty?
@@ -46,10 +43,8 @@ module RunApi
             raise Core::ValidationError, "prompt must be at most #{PROMPT_MAX_LENGTH} characters"
           end
 
-          raise Core::ValidationError, "source_image_url is required" unless param(params, :source_image_url)
           raise Core::ValidationError, "mask_url is required" unless param(params, :mask_url)
 
-          validate_optional!(params, :rendering_speed, Types::RENDERING_SPEEDS)
           validate_character_fields!(params, model)
         end
 
@@ -57,18 +52,9 @@ module RunApi
           refs = param(params, :reference_image_urls)
           if model == Types::CHARACTER_EDIT_MODEL
             raise Core::ValidationError, "reference_image_urls is required" unless refs.is_a?(Array) && refs.any?
-            validate_optional!(params, :style, Types::CHARACTER_STYLES)
           elsif refs || param(params, :style)
             raise Core::ValidationError, "character edit fields are not supported for #{model}"
           end
-          validate_output_count!(params)
-        end
-
-        def validate_output_count!(params)
-          return unless (output_count = param(params, :output_count))
-          return if Types::OUTPUT_COUNTS.include?(output_count)
-
-          raise Core::ValidationError, "Invalid output_count: #{output_count}. Must be one of: #{Types::OUTPUT_COUNTS.join(", ")}"
         end
       end
     end

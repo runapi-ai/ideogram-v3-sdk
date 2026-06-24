@@ -6,14 +6,9 @@ from typing import Any, Dict
 
 from runapi.core import Resource, ValidationError
 
-from .._validators import validate_output_count
+from ..contract_gen import CONTRACT
 from ..types import (
-    ASPECT_RATIOS,
     CHARACTER_MODEL,
-    CHARACTER_STYLES,
-    GENERATION_MODEL,
-    RENDERING_SPEEDS,
-    STYLES,
     CompletedIdeogramResponse,
     IdeogramResponse,
 )
@@ -64,13 +59,8 @@ class TextToImage(Resource):
         return self._request("get", f"{self.ENDPOINT}/{id}")
 
     def _validate_params(self, params: Dict[str, Any]) -> None:
+        self._validate_contract(CONTRACT["text-to-image"], params)
         model = params.get("model")
-        if not model:
-            raise ValidationError("model is required")
-        if model not in (GENERATION_MODEL, CHARACTER_MODEL):
-            raise ValidationError(
-                f"Invalid model: {model}. Must be {GENERATION_MODEL} or {CHARACTER_MODEL}"
-            )
 
         prompt = params.get("prompt")
         if not (isinstance(prompt, str) and prompt):
@@ -78,12 +68,7 @@ class TextToImage(Resource):
         if len(prompt) > self.PROMPT_MAX_LENGTH:
             raise ValidationError(f"prompt must be at most {self.PROMPT_MAX_LENGTH} characters")
 
-        self._validate_optional(params, "rendering_speed", RENDERING_SPEEDS)
-        style_values = CHARACTER_STYLES if model == CHARACTER_MODEL else STYLES
-        self._validate_optional(params, "style", style_values)
-        self._validate_optional(params, "aspect_ratio", ASPECT_RATIOS)
         self._validate_character_refs(params, model)
-        validate_output_count(params)
 
     def _validate_character_refs(self, params: Dict[str, Any], model: str) -> None:
         refs = params.get("reference_image_urls")

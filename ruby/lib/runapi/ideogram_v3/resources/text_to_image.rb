@@ -34,11 +34,8 @@ module RunApi
         private
 
         def validate_params!(params)
+          validate_contract!(CONTRACT["text-to-image"], params)
           model = param(params, :model)
-          raise Core::ValidationError, "model is required" unless model
-          unless [Types::GENERATION_MODEL, Types::CHARACTER_MODEL].include?(model)
-            raise Core::ValidationError, "Invalid model: #{model}. Must be #{Types::GENERATION_MODEL} or #{Types::CHARACTER_MODEL}"
-          end
 
           prompt = param(params, :prompt)
           raise Core::ValidationError, "prompt is required" unless prompt.is_a?(String) && !prompt.empty?
@@ -46,12 +43,7 @@ module RunApi
             raise Core::ValidationError, "prompt must be at most #{PROMPT_MAX_LENGTH} characters"
           end
 
-          validate_optional!(params, :rendering_speed, Types::RENDERING_SPEEDS)
-          style_values = (model == Types::CHARACTER_MODEL) ? Types::CHARACTER_STYLES : Types::STYLES
-          validate_optional!(params, :style, style_values)
-          validate_optional!(params, :aspect_ratio, Types::ASPECT_RATIOS)
           validate_character_refs!(params, model)
-          validate_output_count!(params)
         end
 
         def validate_character_refs!(params, model)
@@ -61,14 +53,6 @@ module RunApi
           elsif refs
             raise Core::ValidationError, "reference_image_urls is not supported for #{model}"
           end
-        end
-
-        def validate_output_count!(params)
-          output_count = param(params, :output_count)
-          return unless output_count
-          return if Types::OUTPUT_COUNTS.include?(output_count)
-
-          raise Core::ValidationError, "Invalid output_count: #{output_count}. Must be one of: #{Types::OUTPUT_COUNTS.join(", ")}"
         end
       end
     end

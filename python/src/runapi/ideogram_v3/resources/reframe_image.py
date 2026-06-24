@@ -6,12 +6,8 @@ from typing import Any, Dict
 
 from runapi.core import Resource, ValidationError
 
-from .._validators import validate_output_count
+from ..contract_gen import CONTRACT
 from ..types import (
-    ASPECT_RATIOS,
-    REFRAME_MODEL,
-    RENDERING_SPEEDS,
-    STYLES,
     CompletedIdeogramResponse,
     IdeogramResponse,
 )
@@ -61,18 +57,7 @@ class ReframeImage(Resource):
         return self._request("get", f"{self.ENDPOINT}/{id}")
 
     def _validate_params(self, params: Dict[str, Any]) -> None:
-        model = params.get("model")
-        if not model:
-            raise ValidationError("model is required")
-        if model != REFRAME_MODEL:
-            raise ValidationError(f"Invalid model: {model}. Must be {REFRAME_MODEL}")
+        self._validate_contract(CONTRACT["reframe-image"], params)
 
-        if not params.get("source_image_url"):
-            raise ValidationError("source_image_url is required")
         if not params.get("aspect_ratio"):
             raise ValidationError("aspect_ratio is required")
-
-        self._validate_optional(params, "aspect_ratio", ASPECT_RATIOS)
-        self._validate_optional(params, "rendering_speed", RENDERING_SPEEDS)
-        self._validate_optional(params, "style", STYLES)
-        validate_output_count(params)

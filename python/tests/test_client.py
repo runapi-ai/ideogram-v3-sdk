@@ -270,7 +270,9 @@ def test_text_to_image_rejects_reference_image_urls_for_base_model():
 def test_edit_requires_source_and_mask():
     client = IdeogramV3Client(api_key="k", http_client=FakeHttp())
     with pytest.raises(ValidationError, match="source_image_url is required"):
-        client.edit_image.create(model="ideogram-v3-edit", prompt="x")
+        client.edit_image.create(
+            model="ideogram-v3-edit", prompt="x", mask_url="https://x/m.png"
+        )
     with pytest.raises(ValidationError, match="mask_url is required"):
         client.edit_image.create(
             model="ideogram-v3-edit", prompt="x", source_image_url="https://x/a.png"

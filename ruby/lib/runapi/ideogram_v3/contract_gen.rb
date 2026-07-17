@@ -7,9 +7,15 @@ module RunApi
         "models" => ["ideogram-v3-character-edit", "ideogram-v3-edit"],
         "fields_by_model" => {
           "ideogram-v3-character-edit" => {
+            "mask_url" => {
+              "required" => true
+            },
             "output_count" => {
               "enum" => [1, 2, 3, 4],
               "type" => "integer"
+            },
+            "reference_image_urls" => {
+              "required" => true
             },
             "rendering_speed" => {
               "enum" => ["turbo", "balanced", "quality"]
@@ -25,6 +31,9 @@ module RunApi
             }
           },
           "ideogram-v3-edit" => {
+            "mask_url" => {
+              "required" => true
+            },
             "output_count" => {
               "enum" => [1, 2, 3, 4],
               "type" => "integer"
@@ -78,6 +87,9 @@ module RunApi
               "enum" => [1, 2, 3, 4],
               "type" => "integer"
             },
+            "reference_image_urls" => {
+              "required" => true
+            },
             "rendering_speed" => {
               "enum" => ["turbo", "balanced", "quality"]
             },
@@ -124,6 +136,9 @@ module RunApi
             "output_count" => {
               "enum" => [1, 2, 3, 4],
               "type" => "integer"
+            },
+            "reference_image_urls" => {
+              "required" => true
             },
             "rendering_speed" => {
               "enum" => ["turbo", "balanced", "quality"]

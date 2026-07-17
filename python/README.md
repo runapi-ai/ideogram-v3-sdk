@@ -1,8 +1,8 @@
-# Ideogram V3 Python SDK for RunAPI
+# Ideogram V3 API Python SDK for RunAPI
 
-The Ideogram V3 Python SDK is the language-specific package for Ideogram V3 on RunAPI. Use this ideogram api package for text-to-image, character reference generation, edit, remix, reframe, and creative production flows when your application needs JSON request bodies, task status lookup, and consistent RunAPI errors in Python.
+The Ideogram V3 Python SDK is the language-specific package for Ideogram V3 on RunAPI. Use this package for image generation, image editing, and creative production workflows when your application needs request bodies, task status lookup, and consistent RunAPI errors in Python.
 
-This ideogram api README is the Python package guide inside the public `ideogram-v3-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/ideogram-v3; for API reference, use https://runapi.ai/docs#ideogram-v3; for SDK docs, use https://runapi.ai/docs#sdk-ideogram-v3.
+This README is the Python package guide inside the public `ideogram-v3-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/ideogram-v3; for API reference, use https://runapi.ai/docs#ideogram-v3; for SDK docs, use https://runapi.ai/docs#sdk-ideogram-v3.
 
 ## Install
 
@@ -28,8 +28,8 @@ status = client.text_to_image.get(task.id)
 edit = client.edit_image.create(
     model="ideogram-v3-edit",
     prompt="Replace the sky with aurora",
-    source_image_url="https://example.com/source.jpg",
-    mask_url="https://example.com/mask.png",
+    source_image_url="https://cdn.runapi.ai/public/samples/image.jpg",
+    mask_url="https://cdn.runapi.ai/public/samples/mask.png",
 )
 ```
 

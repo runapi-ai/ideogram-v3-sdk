@@ -3,9 +3,15 @@ CONTRACT = {
         "models": ["ideogram-v3-character-edit", "ideogram-v3-edit"],
         "fields_by_model": {
             "ideogram-v3-character-edit": {
+                "mask_url": {
+                    "required": True
+                },
                 "output_count": {
                     "enum": [1, 2, 3, 4],
                     "type": "integer"
+                },
+                "reference_image_urls": {
+                    "required": True
                 },
                 "rendering_speed": {
                     "enum": ["turbo", "balanced", "quality"]
@@ -21,6 +27,9 @@ CONTRACT = {
                 }
             },
             "ideogram-v3-edit": {
+                "mask_url": {
+                    "required": True
+                },
                 "output_count": {
                     "enum": [1, 2, 3, 4],
                     "type": "integer"
@@ -74,6 +83,9 @@ CONTRACT = {
                     "enum": [1, 2, 3, 4],
                     "type": "integer"
                 },
+                "reference_image_urls": {
+                    "required": True
+                },
                 "rendering_speed": {
                     "enum": ["turbo", "balanced", "quality"]
                 },
@@ -120,6 +132,9 @@ CONTRACT = {
                 "output_count": {
                     "enum": [1, 2, 3, 4],
                     "type": "integer"
+                },
+                "reference_image_urls": {
+                    "required": True
                 },
                 "rendering_speed": {
                     "enum": ["turbo", "balanced", "quality"]

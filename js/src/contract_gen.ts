@@ -6,6 +6,9 @@ export const contract = {
     ],
     "fields_by_model": {
       "ideogram-v3-character-edit": {
+        "mask_url": {
+          "required": true
+        },
         "output_count": {
           "enum": [
             1,
@@ -14,6 +17,9 @@ export const contract = {
             4
           ],
           "type": "integer"
+        },
+        "reference_image_urls": {
+          "required": true
         },
         "rendering_speed": {
           "enum": [
@@ -37,6 +43,9 @@ export const contract = {
         }
       },
       "ideogram-v3-edit": {
+        "mask_url": {
+          "required": true
+        },
         "output_count": {
           "enum": [
             1,
@@ -135,6 +144,9 @@ export const contract = {
           ],
           "type": "integer"
         },
+        "reference_image_urls": {
+          "required": true
+        },
         "rendering_speed": {
           "enum": [
             "turbo",
@@ -223,6 +235,9 @@ export const contract = {
             4
           ],
           "type": "integer"
+        },
+        "reference_image_urls": {
+          "required": true
         },
         "rendering_speed": {
           "enum": [

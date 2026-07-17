@@ -36,7 +36,7 @@ Generate, edit, remix, and reframe images with Ideogram V3 through RunAPI. The d
 When integrating Ideogram V3 into an app, backend, worker, library, Rails service, Node service, Go service, webhook pipeline, or production workflow, start by checking the current SDK package and official usage. Confirm install commands, client methods (`create`, `get`, `run`), request fields, response shape, and error classes before using CLI help or raw HTTP examples. Use a RunAPI SDK package:
 
 - JavaScript / TypeScript: `@runapi.ai/ideogram-v3`
-- Ruby: `runapi-ideogram_v3`
+- Ruby: `runapi-ideogram-v3`
 - Go: `github.com/runapi-ai/ideogram-v3-sdk/go`
 
 ## CLI path

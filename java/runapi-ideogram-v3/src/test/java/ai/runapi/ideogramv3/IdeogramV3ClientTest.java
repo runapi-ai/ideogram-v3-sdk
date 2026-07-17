@@ -127,21 +127,25 @@ class IdeogramV3ClientTest {
       CapturingTransport createTransport = new CapturingTransport("{\"id\":\"task_edit_image\",\"status\":\"processing\"}");
       IdeogramV3Client createClient = IdeogramV3Client.builder().apiKey("sk-test").transport(createTransport).build();
       assertNotNull(createClient.editImage().create(
-              EditImageParams.builder()
-                  .model(EditImageModel.IDEOGRAM_V3_CHARACTER_EDIT)
-                  .prompt("A small red cube on a plain white table, studio product photo")
-                  .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
-                  .build()
+          EditImageParams.builder()
+              .model(EditImageModel.IDEOGRAM_V3_CHARACTER_EDIT)
+              .prompt("A small red cube on a plain white table, studio product photo")
+              .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
+              .maskUrl("https://cdn.runapi.ai/public/samples/mask.png")
+              .referenceImageUrls(java.util.Arrays.asList("https://cdn.runapi.ai/public/samples/reference.jpg"))
+              .build()
       ));
 
       CapturingTransport createWithOptionsTransport = new CapturingTransport("{\"id\":\"task_edit_image_options\",\"status\":\"processing\"}");
       IdeogramV3Client createWithOptionsClient = IdeogramV3Client.builder().apiKey("sk-test").transport(createWithOptionsTransport).build();
       assertNotNull(createWithOptionsClient.editImage().create(
-              EditImageParams.builder()
-                  .model(EditImageModel.IDEOGRAM_V3_CHARACTER_EDIT)
-                  .prompt("A small red cube on a plain white table, studio product photo")
-                  .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
-                  .build(),
+          EditImageParams.builder()
+              .model(EditImageModel.IDEOGRAM_V3_CHARACTER_EDIT)
+              .prompt("A small red cube on a plain white table, studio product photo")
+              .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
+              .maskUrl("https://cdn.runapi.ai/public/samples/mask.png")
+              .referenceImageUrls(java.util.Arrays.asList("https://cdn.runapi.ai/public/samples/reference.jpg"))
+              .build(),
           RequestOptions.none()));
 
       CapturingTransport getTransport = new CapturingTransport("{\"id\":\"task_edit_image\",\"status\":\"completed\",\"images\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
@@ -157,11 +161,13 @@ class IdeogramV3ClientTest {
           "{\"id\":\"task_edit_image_run\",\"status\":\"completed\",\"images\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
       IdeogramV3Client runClient = IdeogramV3Client.builder().apiKey("sk-test").transport(runTransport).build();
       CompletedEditImageResponse runResponse = runClient.editImage().run(
-              EditImageParams.builder()
-                  .model(EditImageModel.IDEOGRAM_V3_CHARACTER_EDIT)
-                  .prompt("A small red cube on a plain white table, studio product photo")
-                  .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
-                  .build(),
+          EditImageParams.builder()
+              .model(EditImageModel.IDEOGRAM_V3_CHARACTER_EDIT)
+              .prompt("A small red cube on a plain white table, studio product photo")
+              .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
+              .maskUrl("https://cdn.runapi.ai/public/samples/mask.png")
+              .referenceImageUrls(java.util.Arrays.asList("https://cdn.runapi.ai/public/samples/reference.jpg"))
+              .build(),
           RequestOptions.builder().pollingInterval(Duration.ofMillis(1)).pollingMaxWait(Duration.ofSeconds(1)).build());
       assertNotNull(runResponse);
 
@@ -170,11 +176,13 @@ class IdeogramV3ClientTest {
           "{\"id\":\"task_edit_image_run_options\",\"status\":\"completed\",\"images\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
       IdeogramV3Client runWithOptionsClient = IdeogramV3Client.builder().apiKey("sk-test").transport(runWithOptionsTransport).build();
       assertNotNull(runWithOptionsClient.editImage().run(
-              EditImageParams.builder()
-                  .model(EditImageModel.IDEOGRAM_V3_CHARACTER_EDIT)
-                  .prompt("A small red cube on a plain white table, studio product photo")
-                  .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
-                  .build(),
+          EditImageParams.builder()
+              .model(EditImageModel.IDEOGRAM_V3_CHARACTER_EDIT)
+              .prompt("A small red cube on a plain white table, studio product photo")
+              .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
+              .maskUrl("https://cdn.runapi.ai/public/samples/mask.png")
+              .referenceImageUrls(java.util.Arrays.asList("https://cdn.runapi.ai/public/samples/reference.jpg"))
+              .build(),
           RequestOptions.builder().pollingInterval(Duration.ofMillis(1)).pollingMaxWait(Duration.ofSeconds(1)).build()));
     }
 
@@ -235,21 +243,23 @@ class IdeogramV3ClientTest {
       CapturingTransport createTransport = new CapturingTransport("{\"id\":\"task_remix_image\",\"status\":\"processing\"}");
       IdeogramV3Client createClient = IdeogramV3Client.builder().apiKey("sk-test").transport(createTransport).build();
       assertNotNull(createClient.remixImage().create(
-              RemixImageParams.builder()
-                  .model(RemixImageModel.IDEOGRAM_V3_CHARACTER_REMIX)
-                  .prompt("A small red cube on a plain white table, studio product photo")
-                  .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
-                  .build()
+          RemixImageParams.builder()
+              .model(RemixImageModel.IDEOGRAM_V3_CHARACTER_REMIX)
+              .prompt("A small red cube on a plain white table, studio product photo")
+              .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
+              .referenceImageUrls(java.util.Arrays.asList("https://cdn.runapi.ai/public/samples/reference.jpg"))
+              .build()
       ));
 
       CapturingTransport createWithOptionsTransport = new CapturingTransport("{\"id\":\"task_remix_image_options\",\"status\":\"processing\"}");
       IdeogramV3Client createWithOptionsClient = IdeogramV3Client.builder().apiKey("sk-test").transport(createWithOptionsTransport).build();
       assertNotNull(createWithOptionsClient.remixImage().create(
-              RemixImageParams.builder()
-                  .model(RemixImageModel.IDEOGRAM_V3_CHARACTER_REMIX)
-                  .prompt("A small red cube on a plain white table, studio product photo")
-                  .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
-                  .build(),
+          RemixImageParams.builder()
+              .model(RemixImageModel.IDEOGRAM_V3_CHARACTER_REMIX)
+              .prompt("A small red cube on a plain white table, studio product photo")
+              .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
+              .referenceImageUrls(java.util.Arrays.asList("https://cdn.runapi.ai/public/samples/reference.jpg"))
+              .build(),
           RequestOptions.none()));
 
       CapturingTransport getTransport = new CapturingTransport("{\"id\":\"task_remix_image\",\"status\":\"completed\",\"images\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
@@ -265,11 +275,12 @@ class IdeogramV3ClientTest {
           "{\"id\":\"task_remix_image_run\",\"status\":\"completed\",\"images\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
       IdeogramV3Client runClient = IdeogramV3Client.builder().apiKey("sk-test").transport(runTransport).build();
       CompletedRemixImageResponse runResponse = runClient.remixImage().run(
-              RemixImageParams.builder()
-                  .model(RemixImageModel.IDEOGRAM_V3_CHARACTER_REMIX)
-                  .prompt("A small red cube on a plain white table, studio product photo")
-                  .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
-                  .build(),
+          RemixImageParams.builder()
+              .model(RemixImageModel.IDEOGRAM_V3_CHARACTER_REMIX)
+              .prompt("A small red cube on a plain white table, studio product photo")
+              .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
+              .referenceImageUrls(java.util.Arrays.asList("https://cdn.runapi.ai/public/samples/reference.jpg"))
+              .build(),
           RequestOptions.builder().pollingInterval(Duration.ofMillis(1)).pollingMaxWait(Duration.ofSeconds(1)).build());
       assertNotNull(runResponse);
 
@@ -278,11 +289,12 @@ class IdeogramV3ClientTest {
           "{\"id\":\"task_remix_image_run_options\",\"status\":\"completed\",\"images\":[{\"url\":\"https://file.runapi.ai/generated\"}]}");
       IdeogramV3Client runWithOptionsClient = IdeogramV3Client.builder().apiKey("sk-test").transport(runWithOptionsTransport).build();
       assertNotNull(runWithOptionsClient.remixImage().run(
-              RemixImageParams.builder()
-                  .model(RemixImageModel.IDEOGRAM_V3_CHARACTER_REMIX)
-                  .prompt("A small red cube on a plain white table, studio product photo")
-                  .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
-                  .build(),
+          RemixImageParams.builder()
+              .model(RemixImageModel.IDEOGRAM_V3_CHARACTER_REMIX)
+              .prompt("A small red cube on a plain white table, studio product photo")
+              .sourceImageUrl("https://cdn.runapi.ai/public/samples/image.jpg")
+              .referenceImageUrls(java.util.Arrays.asList("https://cdn.runapi.ai/public/samples/reference.jpg"))
+              .build(),
           RequestOptions.builder().pollingInterval(Duration.ofMillis(1)).pollingMaxWait(Duration.ofSeconds(1)).build()));
     }
 

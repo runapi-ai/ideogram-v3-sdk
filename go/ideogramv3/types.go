@@ -1,5 +1,7 @@
 package ideogramv3
 
+import "github.com/runapi-ai/core-sdk/go/core"
+
 // Model constrains the model parameter to valid Ideogram V3 variants.
 type Model string
 
@@ -122,6 +124,7 @@ type ReframeImageParams struct {
 
 // AsyncTaskResponse implements core.TaskResponse for async task polling.
 type AsyncTaskResponse struct {
+	core.TaskBillingFacts
 	ID     string     `json:"id"`
 	Status TaskStatus `json:"status"`
 	Error  string     `json:"error,omitempty"`

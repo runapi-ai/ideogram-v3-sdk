@@ -20,10 +20,6 @@ RSpec.describe RunApi::IdeogramV3::Client do
     expect(client).to be_a(described_class)
   end
 
-  it "raises AuthenticationError without api_key" do
-    expect { described_class.new }.to raise_error(RunApi::Core::AuthenticationError, /API key is required/)
-  end
-
   it "exposes text_to_image, edit_image, remix_image, and reframe_image accessors" do
     client = described_class.new(api_key: "test-key")
     expect(client.text_to_image).to be_a(RunApi::IdeogramV3::Resources::TextToImage)

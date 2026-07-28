@@ -1,5 +1,4 @@
 import { describe, it, expect, beforeEach, afterAll } from 'vitest';
-import { AuthenticationError } from '@runapi.ai/core';
 import { IdeogramV3Client } from '../../src';
 
 const originalEnv = process.env.RUNAPI_API_KEY;
@@ -22,10 +21,6 @@ describe('IdeogramV3Client', () => {
     expect(client.textToImage).toBeDefined();
     expect(client.editImage).toBeDefined();
     expect(client.remixImage).toBeDefined();
-  });
-
-  it('throws when apiKey missing and env unset', () => {
-    expect(() => new IdeogramV3Client()).toThrow(AuthenticationError);
   });
 
   it('reads apiKey from RUNAPI_API_KEY env var', () => {

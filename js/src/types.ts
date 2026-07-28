@@ -1,4 +1,4 @@
-import type { AsyncTaskStatus } from '@runapi.ai/core';
+import type { AsyncTaskStatus, TaskBillingResponse, TaskResponse } from '@runapi.ai/core';
 
 /**
  * All Ideogram V3 model slugs. Standard models handle generation, editing,
@@ -138,7 +138,7 @@ export interface ReframeImageParams {
 }
 
 /** Acknowledged task with its server-assigned ID. */
-export interface TaskCreateResponse {
+export interface TaskCreateResponse extends TaskBillingResponse {
   id: string;
 }
 
@@ -151,7 +151,7 @@ export interface Image {
  * Normalized response for all Ideogram V3 endpoints.
  * `images` is populated once `status` reaches `'completed'`.
  */
-export interface IdeogramV3Response {
+export interface IdeogramV3Response extends TaskResponse {
   id: string;
   status: AsyncTaskStatus;
   images?: Image[];

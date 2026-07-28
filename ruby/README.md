@@ -2,7 +2,7 @@
 
 The Ideogram V3 Ruby SDK is the language-specific package for Ideogram V3 on RunAPI. Use this package for image generation, image editing, and creative production workflows when your application needs request bodies, task status lookup, and consistent RunAPI errors in Ruby.
 
-This README is the Ruby package guide inside the public `ideogram-v3-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/ideogram-v3; for API reference, use https://runapi.ai/docs#ideogram-v3; for SDK docs, use https://runapi.ai/docs#sdk-ideogram-v3.
+This README is the Ruby package guide inside the public `ideogram-v3-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/ideogram-v3; for API reference, use https://runapi.ai/docs/api/ideogram-v3/text-to-image; for SDK docs, use https://runapi.ai/docs/resources/sdks.
 
 ## Install
 
@@ -34,8 +34,8 @@ Use Ruby keyword arguments and the `RunApi::IdeogramV3` error classes when build
 ## Links
 
 - Model page: https://runapi.ai/models/ideogram-v3
-- SDK docs: https://runapi.ai/docs#sdk-ideogram-v3
-- Product docs: https://runapi.ai/docs#ideogram-v3
+- SDK docs: https://runapi.ai/docs/resources/sdks
+- Product docs: https://runapi.ai/docs/api/ideogram-v3/text-to-image
 - Pricing and rate limits: https://runapi.ai/models/ideogram-v3/text-to-image
 - Provider comparison: https://runapi.ai/providers/ideogram
 - Full catalog: https://runapi.ai/models

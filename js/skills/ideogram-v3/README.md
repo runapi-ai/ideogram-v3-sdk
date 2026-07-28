@@ -60,8 +60,8 @@ const url = result.images[0].url;
 ## Routing
 
 - Model page: https://runapi.ai/models/ideogram-v3
-- Product docs: https://runapi.ai/docs#ideogram-v3
-- SDK docs: https://runapi.ai/docs#sdk-ideogram-v3
+- Product docs: https://runapi.ai/docs/api/ideogram-v3/text-to-image
+- SDK docs: https://runapi.ai/docs/resources/sdks
 - SDK repository: https://github.com/runapi-ai/ideogram-v3-sdk
 - Pricing and rate limits: https://runapi.ai/models/ideogram-v3/text-to-image
 - Provider comparison: https://runapi.ai/providers/ideogram

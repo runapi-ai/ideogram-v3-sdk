@@ -110,8 +110,8 @@ Most media endpoints are asynchronous. `create()` submits a task and returns its
 ## Public links
 
 - Model page: https://runapi.ai/models/ideogram-v3
-- SDK docs: https://runapi.ai/docs#sdk-ideogram-v3
-- Product docs: https://runapi.ai/docs#ideogram-v3
+- SDK docs: https://runapi.ai/docs/resources/sdks
+- Product docs: https://runapi.ai/docs/api/ideogram-v3/text-to-image
 - SDK repository: https://github.com/runapi-ai/ideogram-v3-sdk
 - PHP package repository: https://github.com/runapi-ai/ideogram-v3-php
 - Skill repository: https://github.com/runapi-ai/ideogram-v3

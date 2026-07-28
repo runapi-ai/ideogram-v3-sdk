@@ -15,7 +15,7 @@ dependencies = ["runapi-core>=0.3.1"]
 
 [project.urls]
 Homepage = "https://runapi.ai/models/ideogram-v3"
-Documentation = "https://runapi.ai/docs#sdk-ideogram-v3"
+Documentation = "https://runapi.ai/docs/resources/sdks"
 Source = "https://github.com/runapi-ai/ideogram-v3-sdk"
 Issues = "https://github.com/runapi-ai/ideogram-v3-sdk/issues"
 Changelog = "https://github.com/runapi-ai/ideogram-v3-sdk/blob/main/CHANGELOG.md"

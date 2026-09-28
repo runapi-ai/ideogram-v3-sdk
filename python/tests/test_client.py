@@ -88,8 +88,7 @@ def test_text_to_image_create_posts_compacted_body():
             "post",
             "/api/v1/ideogram_v3/text_to_image",
             {"model": "ideogram-v3-text-to-image", "prompt": "hello world", "aspect_ratio": "1:1"},
-        ),
-    ]
+        )]
     assert isinstance(result, IdeogramResponse)
 
 
@@ -117,10 +116,8 @@ def test_edit_image_create_posts_body():
                 "model": "ideogram-v3-edit",
                 "prompt": "add aurora",
                 "source_image_url": "https://x/a.png",
-                "mask_url": "https://x/m.png",
-            },
-        ),
-    ]
+                "mask_url": "https://x/m.png"},
+        )]
 
 
 def test_remix_image_create_posts_body():
@@ -140,10 +137,8 @@ def test_remix_image_create_posts_body():
                 "model": "ideogram-v3-remix",
                 "prompt": "remix it",
                 "source_image_url": "https://x/a.png",
-                "strength": 0.5,
-            },
-        ),
-    ]
+                "strength": 0.5},
+        )]
 
 
 def test_remix_image_get_fetches_by_id():
@@ -168,10 +163,8 @@ def test_reframe_image_create_posts_body():
             {
                 "model": "ideogram-v3-reframe",
                 "source_image_url": "https://x/a.png",
-                "aspect_ratio": "16:9",
-            },
-        ),
-    ]
+                "aspect_ratio": "16:9"},
+        )]
 
 
 def test_reframe_image_get_fetches_by_id():
@@ -187,7 +180,7 @@ def test_reframe_image_get_fetches_by_id():
 def test_text_to_image_run_narrows_completed_type():
     fake = FakeHttp(
         {"id": "t1", "status": "pending"},
-        {"id": "t1", "status": "completed", "images": [{"url": "https://x/y.png"}]},
+        {"id": "t1", "status": "completed", "usage": {"cost": 0.05}, "images": [{"url": "https://x/y.png"}]},
     )
     client = IdeogramV3Client(api_key="k", http_client=fake)
     result = client.text_to_image.run(
@@ -200,7 +193,7 @@ def test_text_to_image_run_narrows_completed_type():
 def test_reframe_image_run_narrows_completed_type():
     fake = FakeHttp(
         {"id": "t1", "status": "pending"},
-        {"id": "t1", "status": "completed", "images": [{"url": "https://x/r.png"}]},
+        {"id": "t1", "status": "completed", "usage": {"cost": 0.05}, "images": [{"url": "https://x/r.png"}]},
     )
     client = IdeogramV3Client(api_key="k", http_client=fake)
     result = client.reframe_image.run(

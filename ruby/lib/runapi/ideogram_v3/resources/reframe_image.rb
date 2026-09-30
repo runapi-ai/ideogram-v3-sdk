@@ -22,20 +22,11 @@ module RunApi
 
         def create(options: nil, **params)
           params = compact_params(params)
-          validate_params!(params)
           request(:post, ENDPOINT, body: params, options: options)
         end
 
         def get(id, options: nil)
           request(:get, "#{ENDPOINT}/#{id}", options: options)
-        end
-
-        private
-
-        def validate_params!(params)
-          validate_contract!(CONTRACT["reframe-image"], params)
-
-          raise Core::ValidationError, "aspect_ratio is required" unless param(params, :aspect_ratio)
         end
       end
     end

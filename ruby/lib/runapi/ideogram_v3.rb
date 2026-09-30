@@ -2,7 +2,6 @@
 
 require "runapi/core"
 require_relative "ideogram_v3/types"
-require_relative "ideogram_v3/contract_gen"
 require_relative "ideogram_v3/resources/text_to_image"
 require_relative "ideogram_v3/resources/edit_image"
 require_relative "ideogram_v3/resources/remix_image"

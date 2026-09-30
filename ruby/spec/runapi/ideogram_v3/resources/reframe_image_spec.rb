@@ -20,18 +20,6 @@ RSpec.describe RunApi::IdeogramV3::Resources::ReframeImage do
       result = reframe_image.create(**params)
       expect(result.id).to eq("task-reframe")
     end
-
-    it "raises when source_image_url missing" do
-      expect {
-        reframe_image.create(model: "ideogram-v3-reframe", aspect_ratio: "1:1")
-      }.to raise_error(RunApi::Core::ValidationError, /source_image_url is required/)
-    end
-
-    it "raises when aspect_ratio missing" do
-      expect {
-        reframe_image.create(model: "ideogram-v3-reframe", source_image_url: "https://x/source.png")
-      }.to raise_error(RunApi::Core::ValidationError, /aspect_ratio is required/)
-    end
   end
 
   describe "#get" do

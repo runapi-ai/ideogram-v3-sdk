@@ -25,7 +25,7 @@ public final class RemixImageParams {
   private RemixImageParams(Builder builder) {
     this.model = builder.model;
     this.prompt = builder.prompt;
-    this.sourceImageUrl = Ideogramv3ParamUtils.requireNonBlank(builder.sourceImageUrl, "sourceImageUrl");
+    this.sourceImageUrl = builder.sourceImageUrl;
     this.renderingSpeed = builder.renderingSpeed;
     this.style = builder.style;
     this.enablePromptExpansion = builder.enablePromptExpansion;
@@ -101,32 +101,32 @@ public final class RemixImageParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = Ideogramv3ParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
 
     /** Sets the text prompt. */
     public Builder prompt(String value) {
-      this.prompt = Ideogramv3ParamUtils.requireNonBlank(value, "prompt");
+      this.prompt = value;
       return this;
     }
 
     /** Sets the source image URL. */
     public Builder sourceImageUrl(String value) {
-      this.sourceImageUrl = Ideogramv3ParamUtils.requireNonBlank(value, "sourceImageUrl");
+      this.sourceImageUrl = value;
       return this;
     }
 
     /** Sets the rendering speed. */
     public Builder renderingSpeed(String value) {
-      this.renderingSpeed = Ideogramv3ParamUtils.requireNonBlank(value, "renderingSpeed");
+      this.renderingSpeed = value;
       return this;
     }
 
     /** Sets the style. */
     public Builder style(String value) {
-      this.style = Ideogramv3ParamUtils.requireNonBlank(value, "style");
+      this.style = value;
       return this;
     }
 
@@ -138,7 +138,7 @@ public final class RemixImageParams {
 
     /** Sets the output aspect ratio. */
     public Builder aspectRatio(String value) {
-      this.aspectRatio = Ideogramv3ParamUtils.requireNonBlank(value, "aspectRatio");
+      this.aspectRatio = value;
       return this;
     }
 
@@ -162,7 +162,7 @@ public final class RemixImageParams {
 
     /** Sets the negative prompt describing what to avoid. */
     public Builder negativePrompt(String value) {
-      this.negativePrompt = Ideogramv3ParamUtils.requireNonBlank(value, "negativePrompt");
+      this.negativePrompt = value;
       return this;
     }
 
@@ -186,7 +186,7 @@ public final class RemixImageParams {
 
     /** Sets the webhook URL for task completion notifications. */
     public Builder callbackUrl(String value) {
-      this.callbackUrl = Ideogramv3ParamUtils.requireNonBlank(value, "callbackUrl");
+      this.callbackUrl = value;
       return this;
     }
 

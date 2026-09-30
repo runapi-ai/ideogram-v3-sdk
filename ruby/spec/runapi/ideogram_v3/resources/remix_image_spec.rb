@@ -22,24 +22,6 @@ RSpec.describe RunApi::IdeogramV3::Resources::RemixImage do
       expect(result.id).to eq("task-1")
     end
 
-    it "raises when source_image_url missing" do
-      expect {
-        remix_image.create(model: "ideogram-v3-remix", prompt: "hi")
-      }.to raise_error(RunApi::Core::ValidationError, /source_image_url is required/)
-    end
-
-    it "raises on invalid output_count" do
-      expect {
-        remix_image.create(model: "ideogram-v3-remix", prompt: "hi", source_image_url: "https://x/i.png", output_count: 7)
-      }.to raise_error(RunApi::Core::ValidationError, /output_count must be one of: 1, 2, 3, 4/)
-    end
-
-    it "raises on strength out of range" do
-      expect {
-        remix_image.create(model: "ideogram-v3-remix", prompt: "hi", source_image_url: "https://x/i.png", strength: 1.5)
-      }.to raise_error(RunApi::Core::ValidationError, /strength must be between/)
-    end
-
     it "POSTs character remix params with reference images" do
       params = {
         model: "ideogram-v3-character-remix",
@@ -53,24 +35,6 @@ RSpec.describe RunApi::IdeogramV3::Resources::RemixImage do
 
       result = remix_image.create(**params)
       expect(result.id).to eq("task-character-remix")
-    end
-
-    it "raises when character remix reference images are missing" do
-      expect {
-        remix_image.create(model: "ideogram-v3-character-remix", prompt: "hi", source_image_url: "https://x/i.png")
-      }.to raise_error(RunApi::Core::ValidationError, /reference_image_urls is required/)
-    end
-
-    it "raises when character remix strength is below the character minimum" do
-      expect {
-        remix_image.create(
-          model: "ideogram-v3-character-remix",
-          prompt: "hi",
-          source_image_url: "https://x/i.png",
-          reference_image_urls: ["https://x/character.webp"],
-          strength: 0.05
-        )
-      }.to raise_error(RunApi::Core::ValidationError, /strength must be between 0.1 and 1.0/)
     end
   end
 end

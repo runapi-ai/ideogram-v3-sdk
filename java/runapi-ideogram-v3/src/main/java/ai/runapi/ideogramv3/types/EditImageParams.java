@@ -21,7 +21,7 @@ public final class EditImageParams {
   private EditImageParams(Builder builder) {
     this.model = builder.model;
     this.prompt = builder.prompt;
-    this.sourceImageUrl = Ideogramv3ParamUtils.requireNonBlank(builder.sourceImageUrl, "sourceImageUrl");
+    this.sourceImageUrl = builder.sourceImageUrl;
     this.maskUrl = builder.maskUrl;
     this.renderingSpeed = builder.renderingSpeed;
     this.style = builder.style;
@@ -85,38 +85,38 @@ public final class EditImageParams {
 
     /** Sets the model slug using a string value. */
     public Builder model(String value) {
-      this.model = Ideogramv3ParamUtils.requireNonBlankTrim(value, "model");
+      this.model = value;
       return this;
     }
 
 
     /** Sets the text prompt. */
     public Builder prompt(String value) {
-      this.prompt = Ideogramv3ParamUtils.requireNonBlank(value, "prompt");
+      this.prompt = value;
       return this;
     }
 
     /** Sets the source image URL. */
     public Builder sourceImageUrl(String value) {
-      this.sourceImageUrl = Ideogramv3ParamUtils.requireNonBlank(value, "sourceImageUrl");
+      this.sourceImageUrl = value;
       return this;
     }
 
     /** Sets the mask URL. */
     public Builder maskUrl(String value) {
-      this.maskUrl = Ideogramv3ParamUtils.requireNonBlank(value, "maskUrl");
+      this.maskUrl = value;
       return this;
     }
 
     /** Sets the rendering speed. */
     public Builder renderingSpeed(String value) {
-      this.renderingSpeed = Ideogramv3ParamUtils.requireNonBlank(value, "renderingSpeed");
+      this.renderingSpeed = value;
       return this;
     }
 
     /** Sets the style. */
     public Builder style(String value) {
-      this.style = Ideogramv3ParamUtils.requireNonBlank(value, "style");
+      this.style = value;
       return this;
     }
 
@@ -146,7 +146,7 @@ public final class EditImageParams {
 
     /** Sets the webhook URL for task completion notifications. */
     public Builder callbackUrl(String value) {
-      this.callbackUrl = Ideogramv3ParamUtils.requireNonBlank(value, "callbackUrl");
+      this.callbackUrl = value;
       return this;
     }
 

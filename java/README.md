@@ -10,6 +10,10 @@ This README is the Java package guide inside the public `ideogram-v3-sdk` reposi
 
 The Java SDK targets Java 8 bytecode and is tested on Java 8, 11, 17, and 21.
 
+## Retirement
+
+`ideogram-v3-reframe` was retired on 2026-10-11. New `reframe_image` requests return HTTP 410 before task creation or balance deduction. Existing task IDs remain queryable. This model ID is not mapped to another model.
+
 ## Install
 
 Gradle:
@@ -34,7 +38,7 @@ Use the BOM when multiple RunAPI Java modules are installed:
 
 ```kotlin
 dependencies {
-  implementation(platform("ai.runapi:runapi-bom:0.9.0"))
+  implementation(platform("ai.runapi:runapi-bom:0.10.0"))
   implementation("ai.runapi:runapi-ideogram-v3")
 }
 ```
@@ -47,7 +51,7 @@ Maven BOM:
     <dependency>
       <groupId>ai.runapi</groupId>
       <artifactId>runapi-bom</artifactId>
-      <version>0.9.0</version>
+      <version>0.10.0</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>

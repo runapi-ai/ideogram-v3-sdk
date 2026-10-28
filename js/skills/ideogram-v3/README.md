@@ -21,9 +21,13 @@
 </div>
 <br/>
 
-Generate, edit, remix, and reframe images with Ideogram V3. This skill helps Claude Code, Codex, Gemini CLI, Cursor, and 50+ agents integrate Ideogram V3 through RunAPI.
+Generate, edit, and remix images with Ideogram V3. This skill helps Claude Code, Codex, Gemini CLI, Cursor, and 50+ agents integrate Ideogram V3 through RunAPI.
 
 The canonical agent file is `skills/ideogram-v3/SKILL.md`.
+
+## Retirement
+
+`ideogram-v3-reframe` was retired on 2026-10-11. New `reframe_image` requests return HTTP 410 before task creation or balance deduction. Existing task IDs remain queryable. This model ID is not mapped to another model.
 
 ## Install
 
@@ -75,7 +79,7 @@ const url = result.images[0].url;
 - [Character](https://runapi.ai/models/ideogram-v3/character)
 - [Character edit](https://runapi.ai/models/ideogram-v3/character-edit)
 - [Character remix](https://runapi.ai/models/ideogram-v3/character-remix)
-- [Reframe](https://runapi.ai/models/ideogram-v3/reframe)
+- [Reframe (retired; historical reference)](https://runapi.ai/models/ideogram-v3/reframe)
 
 ## Agent rules
 

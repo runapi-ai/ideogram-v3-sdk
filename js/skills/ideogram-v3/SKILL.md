@@ -23,6 +23,8 @@ metadata:
 
 # Ideogram V3 on RunAPI
 
+Retired versions below are historical references only. Do not select them for a new request.
+
 ## Choose route
 
 - For a one-off artifact or result, use the registered `ideogram-v3` service in the `runapi` CLI. If the installed command catalog does not list it, stop and report the missing service instead of inventing a command.
@@ -116,6 +118,11 @@ Use this route only for application or production-code integration. Open the cur
 - `ideogram-v3-character-edit`: https://runapi.ai/models/ideogram-v3/character-edit.md
 - `ideogram-v3-character-remix`: https://runapi.ai/models/ideogram-v3/character-remix.md
 - `ideogram-v3-edit`: https://runapi.ai/models/ideogram-v3/edit.md
-- `ideogram-v3-reframe`: https://runapi.ai/models/ideogram-v3/reframe.md
 - `ideogram-v3-remix`: https://runapi.ai/models/ideogram-v3/remix.md
 - `ideogram-v3-text-to-image`: https://runapi.ai/models/ideogram-v3/text-to-image.md
+
+## Retired references
+- `ideogram-v3-reframe` (retired 2026-10-11): https://runapi.ai/models/ideogram-v3/reframe.md
+  This model ID is not mapped to another model.
+
+New requests for these versions return HTTP 410 before task creation or balance deduction. Existing task IDs remain queryable through the task-status API. Do not retry task creation with a retired model ID.

@@ -4,6 +4,10 @@ The Ideogram V3 Ruby SDK is the language-specific package for Ideogram V3 on Run
 
 This README is the Ruby package guide inside the public `ideogram-v3-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/ideogram-v3; for API reference, use https://runapi.ai/docs/api/ideogram-v3/text-to-image; for SDK docs, use https://runapi.ai/docs/resources/sdks.
 
+## Retirement
+
+`ideogram-v3-reframe` was retired on 2026-10-11. New `reframe_image` requests return HTTP 410 before task creation or balance deduction. Existing task IDs remain queryable. This model ID is not mapped to another model.
+
 ## Install
 
 ```bash
@@ -29,7 +33,7 @@ RunAPI-generated file URLs are temporary. Download and store generated images, v
 
 ## Language notes
 
-Use Ruby keyword arguments and the `RunApi::IdeogramV3` error classes when building image jobs, Rails workers, or scripts. The available resources are `text_to_image`, `edit_image`, `remix_image`, and `reframe_image`. Keep `RUNAPI_API_KEY` in the environment or your secret manager; never commit API keys or callback secrets.
+Use Ruby keyword arguments and the `RunApi::IdeogramV3` error classes when building image jobs, Rails workers, or scripts. The available resources are `text_to_image`, `edit_image`, `remix_image`. Keep `RUNAPI_API_KEY` in the environment or your secret manager; never commit API keys or callback secrets.
 
 ## Links
 

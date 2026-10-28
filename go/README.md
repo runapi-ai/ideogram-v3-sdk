@@ -4,6 +4,10 @@ The Ideogram V3 Go SDK is the language-specific package for Ideogram V3 on RunAP
 
 This README is the Go package guide inside the public `ideogram-v3-sdk` repository. For the repository overview, start at `../README.md`; for model details, use https://runapi.ai/models/ideogram-v3; for API reference, use https://runapi.ai/docs/api/ideogram-v3/text-to-image; for SDK docs, use https://runapi.ai/docs/resources/sdks.
 
+## Retirement
+
+`ideogram-v3-reframe` was retired on 2026-10-11. New `reframe_image` requests return HTTP 410 before task creation or balance deduction. Existing task IDs remain queryable. This model ID is not mapped to another model.
+
 ## Install
 
 ```bash
@@ -33,7 +37,7 @@ RunAPI-generated file URLs are temporary. Download and store generated images, v
 
 ## Language notes
 
-Use the public Go module with `github.com/runapi-ai/core-sdk/go` options when building image services, CLIs, or workers. The available resources are `TextToImage`, `EditImage`, `RemixImage`, and `ReframeImage`. Keep `RUNAPI_API_KEY` in the environment or your secret manager; never commit API keys or callback secrets.
+Use the public Go module with `github.com/runapi-ai/core-sdk/go` options when building image services, CLIs, or workers. The available resources are `TextToImage`, `EditImage`, `RemixImage`. Keep `RUNAPI_API_KEY` in the environment or your secret manager; never commit API keys or callback secrets.
 
 ## Links
 

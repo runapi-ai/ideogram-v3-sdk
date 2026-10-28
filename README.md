@@ -22,9 +22,13 @@
 </div>
 <br/>
 
-The Ideogram V3 API SDK packages JavaScript, Python, Ruby, Go, Java, and PHP clients for Ideogram V3 on RunAPI. Use it for text-to-image, image remix, reframe, and edit workflows when your app needs typed request builders, predictable task polling, file upload helpers, account helpers, and consistent RunAPI errors.
+The Ideogram V3 API SDK packages JavaScript, Python, Ruby, Go, Java, and PHP clients for Ideogram V3 on RunAPI. Use it for text-to-image, image remix, and edit workflows when your app needs typed request builders, predictable task polling, file upload helpers, account helpers, and consistent RunAPI errors.
 
 Ideogram V3 is listed in the RunAPI model catalog at https://runapi.ai/models/ideogram-v3. Variant pages below carry pricing, rate-limit, and commercial-usage details. The public `ideogram-v3-sdk` repository groups the non-PHP language packages, examples, CI, and release tags for this model. The PHP package is released from a split Composer repository.
+
+## Retirement
+
+`ideogram-v3-reframe` was retired on 2026-10-11. New `reframe_image` requests return HTTP 410 before task creation or balance deduction. Existing task IDs remain queryable. This model ID is not mapped to another model.
 
 ## Install
 
@@ -57,7 +61,7 @@ Use the Java BOM when installing multiple RunAPI Java modules:
 
 ```kotlin
 dependencies {
-  implementation(platform("ai.runapi:runapi-bom:0.9.0"))
+  implementation(platform("ai.runapi:runapi-bom:0.10.0"))
   implementation("ai.runapi:runapi-ideogram-v3")
 }
 ```
@@ -127,7 +131,7 @@ Use the most specific Ideogram V3 variant page for pricing, rate limits, and com
 - [Character](https://runapi.ai/models/ideogram-v3/character)
 - [Character edit](https://runapi.ai/models/ideogram-v3/character-edit)
 - [Character remix](https://runapi.ai/models/ideogram-v3/character-remix)
-- [Reframe](https://runapi.ai/models/ideogram-v3/reframe)
+- [Reframe (retired; historical reference)](https://runapi.ai/models/ideogram-v3/reframe)
 
 Default pricing link for the Ideogram V3 SDK: https://runapi.ai/models/ideogram-v3/text-to-image
 
